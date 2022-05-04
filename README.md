@@ -2,9 +2,8 @@
 Hollow Knight in-game timer mod
 
 ## Installation
-To install the mod, grab the release ZIP from [the latest 1.2.2.1 release](https://github.com/Yurihaia/HollowKnight-Timer/releases/tag/v0.1.0).
-Extract all 3 `.dll` files into the `Mods` folder in your Hollow Knight installation.  
-The modding API will say that `System.Runtime.Serialization.dll` failed to load but this is completely normal
+To install the mod, grab the release ZIP from [the latest 1.2.2.1 release](https://github.com/Schyvun/HollowKnight-Timer/releases/tag/v0.1.1).
+Extract `Managed.zip` into the `Managed` folder in your Hollow Knight installation.
 
 ### Installation for 1.5.xx
 For current patches of the game, the timer is available from the "Scarab" mod manager
@@ -15,19 +14,23 @@ Then follow the same steps for the [1.2.2.1 installation](#installation)
 
 
 ## Settings
-The keybinds and various other settings can be edited in the `hktimer.json` in the same directory as your save files. They follow the unity keybind naming system.  
+The keybinds and various other settings can be edited in the `HKTimer 1221/GlobalSettings.json` in the same directory as your save files. They follow the unity keybind naming system.  
 the defaults are
 ```json
 {
-    "pause": "[1]",
-    "reset": "[0]",
-    "open_ui": "f1",
-    "set_start": "[7]",
-    "set_end": "[8]",
-    "timerPosition": {
-        "x": 1880.0,
-        "y": 1020.0
-    }
+  "pause": "[1]",
+  "reset": "[0]",
+  "savePB": "[3]",
+  "removePB": "[2]",
+  "open_ui": "f1",
+  "set_start": "[7]",
+  "set_end": "[8]",
+  "timerPosition": {
+    "x": 1880.0,
+    "y": 1020.0
+  },
+  "usePositionRelativeToResolution": false,
+  "textSize": 40
 }
 ```
 Note that `"[1]"` means numpad 1.  
@@ -36,7 +39,8 @@ See this image for a full list of acceptable inputs:
 ### timerPosition
 The setting `timerPosition` can be used to change the position of the timer text.
 The point specified is the Middle-Right point of the main timer text rectangle.
-Values is the pixels of the screen from the lower left corner.
+Values is the pixels of the screen from the lower left corner. 
+If you set usePositionRelativeToResolution it will calculate the Position based off of your current Resolution, otherwise it'll be relative to a 1920x1080 canvas.
 
 ## GUI
 This mod comes with a badly programmed GUI that can be opened with the `open_ui` keybind.
@@ -45,7 +49,7 @@ In the ui you can use the up/down keys to navigate, and the left/right keys to c
 ## Triggers
 Currently, you are able to place a start and an end trigger that can start and pause the timer respectively.
 They are marked by a green (start) or red (end) square floating in the air. Saving them (default keybind `num6`)
-creates a file `hktimer_triggers.json` in your save folder that contains the positions.
+creates a file `HKTimer 1221/triggers.json` in your save folder that contains the positions.
 You can copy this file to save different trigger presets.
 Loading the file (default keybind `num9`) will read that same file. This is done automatically on game start as well
 
@@ -58,9 +62,13 @@ The following trigger types are currently implemented
 
 ### Personal Best Display
 The timer also shows a personal best that is tied to a set of waypoints.
-These are saved in `hktimer_triggers.json` and measured in microseconds (1000 per millisecond).
+These are saved in `HKTimer 1221/triggers.json` and measured in microseconds (1000 per millisecond).
 The PB is loaded when you load the triggers, so if you need to edit/reset it just edit the file.
 The PB will be wiped when you change the trigger positioning, and has to be saved using the save triggers button.
+
+### Average Display
+The timer also shows an average from your last 3/5/10/15 PBs.
+These are saved in `HKTimer 1221/avgTimes.txt`.
 
 ### Manual Trigger File Editing
 TBD - Just look in the code or ask me on discord cause this format got fairly complex but luckily manual 
